@@ -25,7 +25,8 @@ type mkvolReq struct {
 	name      [MaxVolName + 1]byte
 }
 
-func (Ubictrl) Mkvol(ubiNum int, volId, alignment int32, static bool,
+// Mkvol is used to create a new volume on the specified UBI device.
+func Mkvol(ubiNum int, volId, alignment int32, static bool,
 	bytes int64, name string) (err error) {
 	l := len(name)
 	if l > MaxVolName {

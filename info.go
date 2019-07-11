@@ -28,7 +28,7 @@ func sysfileToI(f string) (i int, err error) {
 	return
 }
 
-func (Ubictrl) Info(ubiNum int) (di DevInfo, err error) {
+func Info(ubiNum int) (di DevInfo, err error) {
 	d := "/sys/devices/virtual/ubi/ubi" + strconv.Itoa(ubiNum) + "/"
 	di = DevInfo{}
 
