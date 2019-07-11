@@ -9,7 +9,9 @@ import (
 )
 
 const (
-	iocMagic = 'o'
+	iocMagic     = 'o' // UBI Character device ioctl (/dev/ubiX)
+	iocCtrlMagic = 'o' // UBI Control device ioctl (/dev/ubi_ctrl)
+	iocVolMagic  = 'O' // UBI Volume device ioctl (/dev/ubiX_Y)
 
 	DynamicVol = 3
 	StaticVol  = 4

@@ -26,7 +26,7 @@ func (u Ubictrl) Attach(ubiNum, mtdNum, vidHdrOffset int32,
 	*(*int32)(unsafe.Pointer(&r.vidHdrOffset)) = vidHdrOffset
 	*(*int16)(unsafe.Pointer(&r.maxPebPer1024)) = maxPebPer1024
 
-	err = gioctl.Ioctl(u.f.Fd(), gioctl.IoW(iocMagic, 64,
+	err = gioctl.Ioctl(u.f.Fd(), gioctl.IoW(iocCtrlMagic, 64,
 		unsafe.Sizeof(r)),
 		uintptr(unsafe.Pointer(&r)))
 

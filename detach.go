@@ -11,7 +11,7 @@ import (
 )
 
 func (u Ubictrl) Detach(ubiNum int32) (err error) {
-	err = gioctl.Ioctl(u.f.Fd(), gioctl.IoW(iocMagic, 65,
+	err = gioctl.Ioctl(u.f.Fd(), gioctl.IoW(iocCtrlMagic, 65,
 		unsafe.Sizeof(ubiNum)),
 		uintptr(unsafe.Pointer(&ubiNum)))
 
