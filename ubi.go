@@ -58,12 +58,6 @@ type mapReq struct {
 	padding [3]byte
 }
 
-type setVolPropReq struct {
-	property byte
-	padding  [7]byte
-	value    [4]byte
-}
-
 type blkCreateReq struct {
 	padding [128]byte
 }
