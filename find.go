@@ -17,7 +17,7 @@ var ErrVolumeNotFound = errors.New("Volume not found")
 // returns the associated Linux device.
 func FindVolume(ubiNum int32, volName string) (devName string, err error) {
 	prefix := "ubi" + strconv.Itoa(int(ubiNum))
-	baseDir := "/sys/devices/virtual/ubi/ubi" + prefix + "/"
+	baseDir := "/sys/devices/virtual/ubi/" + prefix + "/"
 
 	files, err := ioutil.ReadDir(baseDir)
 	for _, file := range files {
