@@ -5,6 +5,7 @@
 package ubi
 
 import (
+	"syscall"
 	"unsafe"
 
 	"github.com/paypal/gatt/linux/gioctl"
@@ -18,15 +19,23 @@ type attachReq struct {
 	padding       [10]byte
 }
 
-func (u Ubictrl) Attach(ubiNum, mtdNum, vidHdrOffset int32,
+// Attach is used to associate a specified UBI device with a specified
+// MTD device. This makes all of the logical volumes available.
+func Attach(ubiNum, mtdNum, vidHdrOffset int32,
 	maxPebPer1024 int16) (err error) {
+	u, err := syscall.Open("/dev/ubi_ctrl", syscall.O_RDWR, 0666)
+	if err != nil {
+		return err
+	}
+	defer syscall.Close(u)
+
 	r := attachReq{}
 	*(*int32)(unsafe.Pointer(&r.ubiNum)) = ubiNum
 	*(*int32)(unsafe.Pointer(&r.mtdNum)) = mtdNum
 	*(*int32)(unsafe.Pointer(&r.vidHdrOffset)) = vidHdrOffset
 	*(*int16)(unsafe.Pointer(&r.maxPebPer1024)) = maxPebPer1024
 
-	err = gioctl.Ioctl(u.f.Fd(), gioctl.IoW(iocCtrlMagic, 64,
+	err = gioctl.Ioctl(uintptr(u), gioctl.IoW(iocCtrlMagic, 64,
 		unsafe.Sizeof(r)),
 		uintptr(unsafe.Pointer(&r)))
 
