@@ -20,12 +20,12 @@ const (
 	VolPropDirectWrite = 1
 )
 
-func SetVolProp(fd uintptr, property byte, value uint64) (err error) {
+func (v Volume) SetVolProp(property byte, value uint64) (err error) {
 	r := setVolPropReq{}
 	r.property = property
 	*(*uint64)(unsafe.Pointer(&r.value)) = value
 
-	err = gioctl.Ioctl(fd, gioctl.IoW(iocVolMagic, 6,
+	err = gioctl.Ioctl(v.F.Fd(), gioctl.IoW(iocVolMagic, 6,
 		unsafe.Sizeof(r)),
 		uintptr(unsafe.Pointer(&r)))
 
