@@ -4,10 +4,6 @@
 
 package ubi
 
-import (
-	"os"
-)
-
 const (
 	iocMagic     = 'o' // UBI Character device ioctl (/dev/ubiX)
 	iocCtrlMagic = 'o' // UBI Control device ioctl (/dev/ubi_ctrl)
@@ -21,10 +17,6 @@ const (
 
 	VolNumAuto = -1
 )
-
-type Ubictrl struct {
-	f *os.File
-}
 
 // The types below are for future use. They should be moved into their
 // own files when the methods are created.
