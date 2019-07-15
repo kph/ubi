@@ -2,7 +2,13 @@
 // Use of this source code is governed by the GPL-2 license described in the
 // LICENSE file.
 
+// Package ubi provides a wrapper layer for dealing with Linux unsorted
+// block images.
 package ubi
+
+import (
+	"os"
+)
 
 const (
 	iocMagic     = 'o' // UBI Character device ioctl (/dev/ubiX)
@@ -17,6 +23,10 @@ const (
 
 	VolNumAuto = -1
 )
+
+type Volume struct {
+	F *os.File // File descriptor
+}
 
 // The types below are for future use. They should be moved into their
 // own files when the methods are created.
@@ -48,12 +58,6 @@ type mapReq struct {
 	lnum    [4]byte
 	dtype   byte
 	padding [3]byte
-}
-
-type setVolPropReq struct {
-	property byte
-	padding  [7]byte
-	value    [4]byte
 }
 
 type blkCreateReq struct {
